@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+if Rails.env.development?
+
+  puts "Destroying all restaurants"
+  Restaurant.destroy_all
+
+  puts "Starting seed..."
+  5.times do
+    r = Restaurant.create!(
+      name: Faker::Restaurant.name,
+      address: Faker::Address.street_name,
+      category: %w(chinese italian japanese french belgian).sample,
+      phone_number: Faker::PhoneNumber.phone_number
+      )
+
+    puts "Restaurant id #{r.id} created."
+  end
+
+  puts "Seeding done."
+end
